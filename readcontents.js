@@ -1,4 +1,4 @@
-function readcontents(folder, callback) {
+function readcontents(folder, type, callback) {
   var reading = 0
   var contents = []
   function readsome(reader) {
@@ -6,10 +6,11 @@ function readcontents(folder, callback) {
     reader.readEntries(function(entries) {
       reading = reading - 1
       for(var entry of entries) {
+        if(type == "all" || (entry.isDirectory && type == "folder") || (entry.isFile && type == "file")) {
+          contents.push(entry)
+        }
         if(entry.isDirectory) {
           readsome(entry.createReader())
-        } else {
-          contents.push(entry)
         }
       }
       if(entries.length) {
