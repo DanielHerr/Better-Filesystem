@@ -1,4 +1,4 @@
 # readcontents.js
-Gets a list of the file entries inside a directory entry.
+Gets the contents of a directory entry.
 
-Usage: readcontents(directoryentry, ("all" || "file" || "folder"), function(entries) { })
+Usage: readfolder(directoryentry, types, function(contents) { }), where types is a string or array of strings: "folder", "file", "content".
