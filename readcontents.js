@@ -1,15 +1,11 @@
-Array.prototype.includes = Array.prototype.includes || function() {
- return Array.prototype.indexOf.apply(this, arguments) !== -1
-}
-
-var readfolder = function(folder, types, callback) {
+function readfolder(folder, types, callback) {
  if(typeof(types) == "function") {
   callback = types
   types = ["folder", "file", "content"]
  }
  var reading = 0
  var contents = []
- var readsomeentries = function(reader) {
+ function readsomeentries(reader) {
   reading = reading + 1
   reader.readEntries(function(entries) {
    reading = reading - 1
@@ -25,7 +21,7 @@ var readfolder = function(folder, types, callback) {
    } else if(reading == 0) {
     if(types.includes("content")) {
      readfolder(folder, "file", function(files) {
-      var readcontent = function() {
+      function readcontent() {
        if(reading < files.length) {
         files[reading].file(function(file) {
          file.fullPath = files[reading].fullPath
