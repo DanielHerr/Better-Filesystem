@@ -27,10 +27,7 @@ function readfolder(folder, types, callback) {
         contents.push(file)
         if(position + 1 == files.length) {
          callback(contents)
-        }
-       })
-      })
-     })
+     } }) }) })
     } else {
      callback(contents)
  } } }) }
