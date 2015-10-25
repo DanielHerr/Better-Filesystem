@@ -21,19 +21,15 @@ function readfolder(folder, types, callback) {
    } else if(reading == 0) {
     if(types.includes("content")) {
      readfolder(folder, "file", function(files) {
-      function readcontent() {
-       if(reading < files.length) {
-        files[reading].file(function(file) {
-         file.fullPath = files[reading].fullPath
-         contents.push(file)
-         reading = reading + 1
-         readcontent()
-        })
-       } else {
-        callback(contents)
-       }
-      }
-      readcontent()
+      files.forEach(function(entry, position) {
+       entry.file(function(file) {
+        file.fullPath = entry.fullPath
+        contents.push(file)
+        if(position + 1 == files.length) {
+         callback(contents)
+        }
+       })
+      })
      })
     } else {
      callback(contents)
