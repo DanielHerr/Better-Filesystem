@@ -1,4 +1,11 @@
 # Read Folder Contents
-Gets the contents of a directory entry. Requires an Array.prototype.includes polyfill.
+Gets the contents of a directory entry. Requires an array includes polyfill for muliple types.
 
-Usage: readfolder(directoryentry, types, function(contents) { }), where types is an optional string or array of strings: "folder", "file", "content".
+Usage:
+```javascript
+readfolder(directoryentry, "content" || "folder" || "file" || []).then(function(contents) {
+ console.log(contents)
+}).catch(function() {
+ console.log("Error reading folder.")
+})
+```
