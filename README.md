@@ -1,5 +1,5 @@
 # Read Folder Contents
-Gets the contents of a directory entry. Requires an array includes polyfill for muliple types.
+Gets the contents of a directory entry.
 
 Usage:
 ```javascript
