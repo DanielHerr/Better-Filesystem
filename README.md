@@ -1,4 +1,4 @@
-# Read Folder Contents
+# Folder Reader
 Gets the contents of a directory entry.
 
 Usage:
