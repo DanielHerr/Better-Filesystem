@@ -1,11 +1,16 @@
-# Folder Reader
-Gets the contents of a directory entry.
+# Better Filesystem
+Improves the sandboxed filesystem api with promises and simplified methods.
 
 Usage:
 ```javascript
-readfolder(directoryentry, "content" || "folder" || "file" || []).then(function(contents) {
- console.log(contents)
-}).catch(function() {
- console.log("Error reading folder.")
-})
+entry = betterfilesystem(entry)
+entries = betterfilesystem(...entries)
 ```
+
+Entry: parent(), move(parent, name), copy(parent, name), remove(), rename(name), size(), metadata()
+
+File: read(type), write(data)
+
+Folder: file(path, options), folder(path, options), read(recursive)
+
+Requires: <a href="https://github.com/DanielHerr/Enable-Await">Enable Await</a>, <a href="https://github.com/DanielHerr/Promisify">Promisify</a>
