@@ -3,9 +3,8 @@
 function betterfilesystem(...entries) {
  for(let entry of entries) {
   if(entry.isFile) {
-   entry.read = function(type) {
+   entry.read = function(type = "Text") {
     let file = this
-    type = type || "Text"
     return(new Promise(function(resolve, reject) {
      file.file(function(file) {
       let reader = new FileReader()
@@ -42,14 +41,14 @@ function betterfilesystem(...entries) {
      resolve(betterfilesystem(folder))
    }))) }
    entry.remove = promisify(entry.removeRecursively)
-   entry.read = function(recursive) {
+   entry.read = function(recursive = true) {
     let folder = this
     return(new Promise(async(function*(resolve, reject) {
      let contents = []
      function reading(reader) {
       return(new Promise(async(function*(resolve, reject) {
        let entries = yield(reader.readsome())
-       if(recursive != false) {
+       if(recursive) {
         for(let entry of entries) {
          if(entry.isDirectory) {
           let reader = entry.createReader()
