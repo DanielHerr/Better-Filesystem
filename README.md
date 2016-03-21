@@ -7,10 +7,10 @@ entry = betterfilesystem(entry)
 entries = betterfilesystem(...entries)
 ```
 
-Entry: parent(), move(parent, name), copy(parent, name), remove(), rename(name), size(), metadata()
+Entry: parent(), move(parent, name), copy(parent, name), rename(name), remove(), size(), date()
 
-File: read(type), write(data)
+File: read(type = "Text"), write(data)
 
-Folder: file(path, options), folder(path, options), read(recursive)
+Folder: get(path, options), file(path, options), folder(path, options), read(recursive = true)
 
-Requires: <a href="https://github.com/DanielHerr/Async-Await">Async Await</a>, <a href="https://github.com/DanielHerr/Promisify">Promisify</a>
+Requires: <a href="https://github.com/DanielHerr/Async-Await">Async Await</a>, <a href="https://github.com/DanielHerr/Promisify">Promisify</a>, <a href="https://github.com/DanielHerr/Any-Promise">Any Promise</a>
