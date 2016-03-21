@@ -30,13 +30,17 @@ function betterfilesystem(...entries) {
    })) }
    entry.remove = promisify(entry.remove)
   } else {
-   entry.file = async(function*(path, options = {}) {
-    let file = yield(promisify(entry.getFile)(path, options))
+   entry.file = async(function*(path = "", options = {}) {
+    let file = yield(promisify(entry.getFile).call(entry, path, options))
     return(betterfilesystem(file))
    })
-   entry.folder = async(function*(path, options = {}) {
-    let folder = yield(promisify(entry.getDirectory)(path, options))
-    resolve(betterfilesystem(folder))
+   entry.folder = async(function*(path = "", options = {}) {
+    let folder = yield(promisify(entry.getDirectory).call(entry, path, options))
+    return(betterfilesystem(folder))
+   })
+   entry.get = async(function*(path = "", options = {}) {
+    let childentry = yield(Promise.any([entry.file(path, options), entry.folder(path, options)]))
+    return(betterfilesystem(childentry))
    })
    entry.remove = promisify(entry.removeRecursively)
    entry.read = async(function*(recursive = true) {
@@ -67,7 +71,7 @@ function betterfilesystem(...entries) {
   entry.parent = promisify(entry.getParent)
   entry.move = promisify(entry.moveTo)
   entry.copy = promisify(entry.copyTo)
-  entry.rename = async(function*(name) {
+  entry.rename = async(function*(name = "") {
    let parent = yield(entry.parent())
    return(entry.move(parent, name))
   })
