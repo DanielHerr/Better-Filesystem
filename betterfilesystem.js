@@ -17,6 +17,9 @@ function betterfilesystem(...entries) {
    entry.write = function(data) {
     let file = this
     return(new Promise(function(resolve, reject) {
+     if(typeof(data) == "string") {
+      data = new Blob([data])
+     }
      file.createWriter(function(writer) {
       writer.addEventListener("write", function() {
        file.createWriter(function(writer) {
