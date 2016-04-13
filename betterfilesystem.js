@@ -1,6 +1,11 @@
 "use strict"
 
-function betterfilesystem(...entries) {
+function betterfilesystem(entries = []) {
+ let multiple = true
+ if(Array.isArray(entries) == false) {
+  entries = [ entries ]
+  multiple = false
+ }
  for(let entry of entries) {
   if(entry.isFile) {
    entry.read = function(type = "Text") {
@@ -14,7 +19,7 @@ function betterfilesystem(...entries) {
       reader.addEventListener("error", reject)
       reader["readAs" + type](file)
    }, reject) })) }
-   entry.write = function(data) {
+   entry.write = function(data = new Blob) {
     let file = this
     return(new Promise(function(resolve, reject) {
      if(typeof(data) == "string") {
@@ -65,10 +70,7 @@ function betterfilesystem(...entries) {
     let reader = folder.createReader()
     reader.readsome = promisify(reader.readEntries)
     yield(reading(reader))
-    contents = betterfilesystem(...contents)
-    if(Array.isArray(contents) == false) {
-     contents = [ contents ]
-    }
+    contents = betterfilesystem(contents)
     return(contents)
   }) }
   entry.parent = promisify(entry.getParent)
@@ -96,8 +98,8 @@ function betterfilesystem(...entries) {
     } }
     return(size)
  } }) }
- if(entries.length == 1) {
-  entries = entries[0]
- }
- return(entries)
-}
+ if(multiple) {
+  return(entries)
+ } else {
+  return(entries[0])
+} }
