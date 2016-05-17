@@ -19,7 +19,7 @@ function betterfilesystem(entries = []) {
       reader.addEventListener("error", reject)
       reader["readAs" + type](file)
    }, reject) })) }
-   entry.write = function(data = new Blob) {
+   entry.write = function(data = "") {
     let file = this
     return(new Promise(function(resolve, reject) {
      if(typeof(data) == "string") {
@@ -78,7 +78,7 @@ function betterfilesystem(entries = []) {
   entry.copy = promisify(entry.copyTo)
   entry.rename = async(function*(name = "") {
    let parent = yield(entry.parent())
-   return(entry.move(parent, name))
+   yield(entry.move(parent, name))
   })
   entry.metadata = promisify(entry.getMetadata)
   entry.date = async(function*() {
